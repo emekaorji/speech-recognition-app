@@ -1,26 +1,82 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import styles from './app.module.css';
+import useSpeechRecognition from './useSpeechRecognittion';
+// import { isEqualArrays } from './utils';
+
+const colors = [
+	'aqua',
+	'azure',
+	'beige',
+	'bisque',
+	'black',
+	'blue',
+	'brown',
+	'chocolate',
+	'coral',
+	'crimson',
+	'cyan',
+	'fuchsia',
+	'ghostwhite',
+	'gold',
+	'goldenrod',
+	'gray',
+	'green',
+	'indigo',
+	'ivory',
+	'khaki',
+	'lavender',
+	'lime',
+	'linen',
+	'magenta',
+	'maroon',
+	'moccasin',
+	'navy',
+	'olive',
+	'orange',
+	'orchid',
+	'peru',
+	'pink',
+	'plum',
+	'purple',
+	'red',
+	'salmon',
+	'sienna',
+	'silver',
+	'snow',
+	'tan',
+	'teal',
+	'thistle',
+	'tomato',
+	'turquoise',
+	'violet',
+	'white',
+	'yellow',
+];
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const { liveTranscript, match, start, transcripts } = useSpeechRecognition({
+		regex: new RegExp(colors.join('|'), 'gi'),
+		startOnLoad: false,
+	});
+
+	// useEffect(() => {
+	// 	start();
+	// }, [start]);
+
+	// console.log(isEqualArrays([], []));
+
+	console.log(match);
+
+	return (
+		<>
+			<div className={styles.bg} style={{ backgroundColor: match || 'beige' }}>
+				{transcripts.map((item) => (
+					<p key={item.id}>{item.transcript}</p>
+				))}
+				<p>{liveTranscript}</p>
+			</div>
+		</>
+	);
 }
 
 export default App;
