@@ -59,9 +59,9 @@ function App() {
 		startOnLoad: false,
 	});
 
-	// useEffect(() => {
-	// 	start();
-	// }, [start]);
+	useEffect(() => {
+		start();
+	}, [start]);
 
 	// console.log(isEqualArrays([], []));
 
